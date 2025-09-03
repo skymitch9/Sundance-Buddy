@@ -1,0 +1,6 @@
+ib-insync==0.9.86
+pyyaml==6.0.2
+requests==2.32.3
+pandas==2.2.3
+numpy==1.26.4
+python-dotenv==1.0.1

@@ -1,0 +1,22 @@
+{
+    "symbol": "MSFT",
+    "display": "Microsoft",
+    "exchange": "SMART",
+    "currency": "USD",
+    "secType": "STK",
+    "min_change_abs": 0.0,
+    "min_change_pct": 0.0,
+    "baseline_price": 410.0,
+    "rules": [
+        {
+            "name": "Buy dip",
+            "when": {"pct_change_up": 2.0},
+            "action": "BUY"
+        },
+        {
+            "name": "Sell profit",
+            "when": {"pct_change_down": 2.5},
+            "action": "SELL"
+        }
+    ]
+}

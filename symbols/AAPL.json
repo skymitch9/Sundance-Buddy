@@ -1,0 +1,22 @@
+{
+    "symbol": "AAPL",
+    "display": "Apple",
+    "exchange": "SMART",
+    "secType": "STK",
+    "min_change_abs": 0.0,
+    "min_change_pct": 0.0,
+    "currency": "USD",
+    "baseline_price": 200.0,
+    "rules": [
+        {
+            "name": "Buy dip",
+            "when": {"price_below": 195.0},
+            "action": "BUY"
+        },
+        {
+            "name": "Sell profit",
+            "when": {"price_above": 210.0},
+            "action": "SELL"
+        }
+    ]
+}

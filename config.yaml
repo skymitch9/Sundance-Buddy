@@ -1,0 +1,19 @@
+ib:
+  host: 127.0.0.1
+  # Ports: TWS Paper=7497 | TWS Live=7496 | IB Gateway Paper=4002 | IB Gateway Live=4001
+  port: 7497
+  clientId: 1001
+  # If you don't have real-time data permissions, set true to use delayed data
+  useDelayed: true
+
+discord:
+  webhook_url: ""
+
+throttle_seconds: 2
+
+defaults:
+  min_change_abs: 0.0    # e.g., 0.05 means only alert if price changed by ≥ $0.05
+  min_change_pct: 0.0    # e.g., 0.1 means only alert if price changed by ≥ 0.1%
+
+paths:
+  symbols_dir: ./symbols
