@@ -2,6 +2,17 @@
 .env
 .env.local
 !.env.example
+__pycache__/
+*.pyc
+.venv/
+
 
 # Optional if you also keep a local config
 #config.yaml
+
+# Outputs
+outputs/
+*.parquet
+*.csv
+*.json
+
