@@ -8,10 +8,7 @@ Welcome! This guide will help you set up and run EODHD data fetching with Sundan
 
 ### 1. Set Your API Key
 
-1. Copy `.env.example` to `.env`:
-    ```sh
-    .env.example .env
-    ```
+1. Copy `.env.example` to `.env`
 2. Open `.env` and paste your EODHD API token in the quotes:
     ```
     EODHD_API_KEY="your_token_here"
