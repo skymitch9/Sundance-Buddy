@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-
 import csv
 import json
 from pathlib import Path
 from typing import Dict, List
-
 
 try:
 	import pyarrow as pa  # type: ignore
@@ -14,14 +12,8 @@ try:
 except Exception:
 	_PARQUET_OK = False
 
-
-
-
 def ensure_dir(p: Path) -> None:
 	p.mkdir(parents=True, exist_ok=True)
-
-
-
 
 def write_rows(rows: List[Dict], out_path: Path, fmt: str) -> None:
 	fmt = fmt.lower()

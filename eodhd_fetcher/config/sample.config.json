@@ -1,0 +1,24 @@
+{
+  "tickers": ["AAPL.US", "MSFT.US", "SPY.US"],
+  "from": "2023-01-01",
+  "to": "2025-09-30",
+  "data": {
+    "period": "d",
+    "order": "a",
+    "adjusted": 1
+  },
+  "requests": {
+    "timeout": 30,
+    "max_retries": 5,
+    "backoff_base": 0.8
+  },
+  "output": {
+    "directory": "./outputs",
+
+    "format": "csv",
+    "per_ticker": true,
+    "filename_template": "{ticker}_{from}_{to}.{ext}",
+    "combined_filename": "combined_{from}_{to}.{ext}",
+    "include_ticker_column_in_combined": true
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "name": "congress-aapl-autobuy",
+  "timezone": "America/Phoenix",
+
+  "universe": ["AAPL"],
+
+  "signal_providers": {
+    "congress_trades": {
+      "enabled": true,
+      "source": "quiverquant", 
+      "api_key_env": "QUIVER_API_KEY",
+      "poll_interval_sec": 300,
+      "endpoint": "congresstrading",
+      "since_days": 30,
+      "normalize": true,
+      "fields": {
+        "actor": "politician",
+        "ticker": "ticker",
+        "transaction_type": "transaction",
+        "transaction_date": "transaction_date",
+        "reported_date": "report_date",
+        "amount_low": "amount_low",
+        "amount_high": "amount_high",
+        "chamber": "chamber" 
+      }
+    }
+  },
+
+  "routing": {
+    "only_if_market_open": true,
+    "market_session": "REG",
+    "allowed_days": ["Mon", "Tue", "Wed", "Thu", "Fri"]
+  },
+
+  "risk": {
+    "max_daily_notional_usd": 10000,
+    "max_positions": 5,
+    "max_order_notional_usd": 2500,
+    "max_slippage_bps": 25,
+    "cancel_after_sec": 15
+  },
+
+  "dedup": {
+    "enabled": true,
+    "lookback_hours": 240,
+    "key_fields": ["actor", "ticker", "transaction_date", "transaction_type"]
+  },
+
+  "alerts": {
+    "discord_webhook_env": "DISCORD_WEBHOOK_URL",
+    "on_fill": true,
+    "on_error": true
+  },
+
+  "strategy": {
+    "type": "rule_engine",
+    "rules": [
+      {
+        "name": "AAPL buy – Nancy Pelosi",
+        "when": {
+          "all": [
+            { "field": "ticker", "op": "eq", "value": "AAPL" },
+            { "field": "transaction_type", "op": "in", "value": ["Buy", "Purchase", "Buy (Stock)", "Call Purchase"] },
+            { "field": "actor", "op": "icontains", "value": "Nancy Pelosi" }
+          ]
+        },
+        "then": {
+          "action": "place_order",
+          "order": {
+            "symbol": "AAPL",
+            "asset_class": "STK",
+            "exchange": "SMART",
+            "currency": "USD",
+            "type": "MKT",
+            "time_in_force": "DAY",
+            "quantity_mode": "notional_usd",
+            "quantity_value": 1000
+          },
+          "safety": {
+            "limit_from_nbbo_bps": 15,
+            "reject_if_spread_bps_gt": 30
+          }
+        }
+      },
+      {
+        "name": "AAPL buy – Any member of Congress",
+        "when": {
+          "all": [
+            { "field": "ticker", "op": "eq", "value": "AAPL" },
+            { "field": "transaction_type", "op": "in", "value": ["Buy", "Purchase", "Buy (Stock)", "Call Purchase"] },
+            { "field": "chamber", "op": "in", "value": ["House", "Senate"] }
+          ]
+        },
+        "then": {
+          "action": "place_order",
+          "order": {
+            "symbol": "AAPL",
+            "asset_class": "STK",
+            "exchange": "SMART",
+            "currency": "USD",
+            "type": "MKT",
+            "time_in_force": "DAY",
+            "quantity_mode": "notional_usd",
+            "quantity_value": 500
+          },
+          "safety": {
+            "limit_from_nbbo_bps": 15,
+            "reject_if_spread_bps_gt": 30
+          }
+        }
+      }
+    ],
+    "cooldown": {
+      "per_symbol_minutes": 120
+    }
+  },
+
+  "backtest_mode": false,
+  "logging": {
+    "level": "INFO",
+    "file": "./logs/congress_aapl_autobuy.log"
+  }
+}

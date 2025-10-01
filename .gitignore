@@ -2,17 +2,17 @@
 .env
 .env.local
 !.env.example
+
+# Python
 __pycache__/
 *.pyc
 .venv/
 
-
 # Optional if you also keep a local config
-#config.yaml
+# config.yaml
 
-# Outputs
+# Outputs (ignore only generated files)
 outputs/
-*.parquet
-*.csv
-*.json
-
+outputs/*.parquet
+outputs/*.csv
+outputs/*.json
